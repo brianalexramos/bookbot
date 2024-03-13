@@ -24,6 +24,16 @@ def count_letters(text):
                 letter_count_dict[char] = 1
     return letter_count_dict
 
+def char_dict_to_sorted(char_dict):
+    sorted_list = []
+    for char in char_dict:
+        sorted_list.append({"char": char, "num": char_dict[char]})
+    sorted_list.sort(reverse=True, key=sort_on)
+    return sorted_list
+
+def sort_on(dict):
+    return dict["num"]
+
 def print_book_report(path, text):
     print(f"\n--- Beginning report for {path} ---\n")
 
@@ -31,8 +41,9 @@ def print_book_report(path, text):
     print(f"{word_count} words found in the document\n")
 
     char_count = count_letters(text)
-    for char in char_count:
-        print(f"The '{char}' character was found {char_count[char]} times")
+    char_count_list = char_dict_to_sorted(char_count)
+    for item in char_count_list:
+        print(f"The '{item['char']}' character was found {item['num']} times")
     
     print("\n--- End report ---\n")
 
